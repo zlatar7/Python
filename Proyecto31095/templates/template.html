@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+</head>
+<body>
+    <h1>Esto es un Template</h1>
+    <p>{{nombre}}</p>
+    <p>{{edad}}</p>
+    <p>{{fecha}}</p>
+    <p>{{lista}}</p>
+
+    <hr>
+
+    {% for numero in lista %}
+        
+        {% if numero == 3 %}
+        
+        <p>Cuidado con el número: {{numero}} ! Es malvado!</p>
+        
+        {% else %}
+     
+        <p>Mi numero es: {{numero}}</p>
+        
+        {% endif %}
+    
+    {% endfor %}
+
+
+    <hr>
+
+    {% for key, value in diccionario.items %}
+        <p>Mi llave es: {{key}}. Y su valor es: {{value}}</p>
+    {% endfor %}
+
+</body>
+</html>
