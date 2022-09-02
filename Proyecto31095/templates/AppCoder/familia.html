@@ -1,42 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Familia</title>
-</head>
-<body> 
-    <h1 style="text-align: center; color:#ffae00">MI FAMILIA</h1>
-    <table style="background-color: #ffae0096; margin: auto; color: #ffffff; border: 1.5px solid #ff9100; box-shadow: 0px 0px 15px 6px #ff66006c;">
-        <thead style="background-color: #ff9900f1;">
-            <tr>
-                <th>NOMBRE</th>
-                <th>APELLIDO</th>
-                <th>EDAD</th>
-                <th>FECHA DE INGRESO</th>
-            </tr>
-        </thead>
-        <Tbody style="background-color: #ff9900f1;">
-            <tr>
-                <td>{{persona1.nombre}}</td>   
-                <td>{{persona1.apellido}}</td>
-                <td>{{persona1.edad}}</td>
-                <td>{{persona1.fecha}}</td>
-            </tr>
-            <tr>
-                <td>{{persona2.nombre}}</td>   
-                <td>{{persona2.apellido}}</td>
-                <td>{{persona2.edad}}</td>
-                <td>{{persona2.fecha}}</td>
-            </tr>
-            <tr>
-                <td>{{persona3.nombre}}</td>   
-                <td>{{persona3.apellido}}</td>
-                <td>{{persona3.edad}}</td>
-                <td>{{persona3.fecha}}</td>
-            </tr>
-        </Tbody>
-    </table>    
-</body>
-</html>
+{% extends 'index.html' %}
+
+{% block title %} FAMILIA {% endblock %}
+
+{% block inicio %}
+
+<h1 style="text-align: center; color:#ffae00">MI FAMILIA</h1>
+<table style="background-color: #ffae0096; margin: auto; color: #ffffff; border: 1.5px solid #ff9100; box-shadow: 0px 0px 15px 6px #ff66006c;">
+    <thead style="background-color: #ff9900f1;">
+        <tr>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>EDAD</th>
+            <th>FECHA DE INGRESO</th>
+        </tr>
+    </thead>
+    <Tbody style="background-color: #ff9900f1;">
+        <tr>
+            <td>{{persona1.nombre}}</td>   
+            <td>{{persona1.apellido}}</td>
+            <td>{{persona1.edad}}</td>
+            <td>{{persona1.fecha}}</td>
+        </tr>
+        <tr>
+            <td>{{persona2.nombre}}</td>   
+            <td>{{persona2.apellido}}</td>
+            <td>{{persona2.edad}}</td>
+            <td>{{persona2.fecha}}</td>
+        </tr>
+        <tr>
+            <td>{{persona3.nombre}}</td>   
+            <td>{{persona3.apellido}}</td>
+            <td>{{persona3.edad}}</td>
+            <td>{{persona3.fecha}}</td>
+        </tr>
+    </Tbody>
+</table>
+
+{% endblock %}    
