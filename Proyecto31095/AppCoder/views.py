@@ -1,24 +1,58 @@
 from django.shortcuts import render, redirect
-from datetime import datetime
+from django.contrib import messages
+import django
 
-from AppCoder.models import Familia, Curso
-from AppCoder.forms import CursoFormulario, BusquedaCamadaFormulario
+from AppCoder.models import Curso, Profesor
+from AppCoder.forms import CursoFormulario, BusquedaCamadaFormulario, ProfesoresFormulario
 
 def inicio(request):
     return render(request, 'index.html')
 
-def familia (request):
+def editar_curso(request, camada):
+    curso_editar = Curso.objects.get(camada=camada)
 
-    persona1 = Familia(nombre="Guido", apellido="Zlatar", edad=27, fecha=datetime.now())
-    persona2 = Familia(nombre="Guille", apellido="Zlatar", edad=33, fecha=datetime.now())
-    persona3 = Familia(nombre="Norma", apellido="Acevedo", edad=47, fecha=datetime.now())
-    persona1.save()
-    persona2.save()
-    persona3.save()
+    if request.method == 'POST':
+        mi_formulario = CursoFormulario(request.POST)
 
-    contexto= {'persona1': persona1,'persona2': persona2,'persona3': persona3,}
+        if mi_formulario.is_valid():
 
-    return render(request, 'AppCoder/familia.html', contexto)
+            data = mi_formulario.cleaned_data
+
+            curso_editar.nombre = data.get('nombre')
+            curso_editar.camada = data.get('camada')
+            try:
+                curso_editar.save()
+            except django.db.utils.IntegrityError:
+                messages.error(request, "la modificacion fallo por que la camada esta repedita")
+
+            return redirect('AppCoderCurso')
+
+    contexto = {
+        'form': CursoFormulario(
+            initial={
+                "nombre": curso_editar.nombre,
+                "camada": curso_editar.camada,
+            }
+        )
+    }
+
+    return render(request, 'AppCoder/curso_formulario.html', contexto)
+
+def eliminar_curso(request, camada):
+    curso_eliminar = Curso.objects.get(camada= camada)
+    curso_eliminar.delete()
+
+    messages.info(request ,f"El curso {curso_eliminar} fue eliminado")
+
+    return redirect('AppCoderCurso')
+
+def curso (request):
+
+    cursos = Curso.objects.all()
+
+    contexto= {'cursos': cursos}
+
+    return render(request, 'AppCoder/curso.html', contexto)
 
 def curso_formulario(request):
 
@@ -47,9 +81,27 @@ def curso_busqueda(request):
     camada = request.POST.get('camada')
 
     cursos = Curso.objects.filter(camada__icontains=camada)
-    """ __exact para usar el filtro de manera exacta """
+    """ '__exact' para usar el filtro de manera exacta """
     contexto = {
         'form': BusquedaCamadaFormulario(),
         'cursos': cursos
     }
     return render(request, 'AppCoder/busqueda_camada.html', contexto)
+
+def profesores(request):
+
+    if request.method == 'POST':
+        mi_formulario = ProfesoresFormulario()(request.POST)
+
+        if mi_formulario.is_valid():
+            
+            data = mi_formulario.cleaned_data
+
+            curso1 = Profesor(nombre=data.get('nombre'), apellido=data.get('camada'), email=data.get('email'), profesion=data.get('profesion'))
+            curso1.save()
+            
+            return redirect('AppCoderProfesores')
+
+    contexto = {'form': ProfesoresFormulario()}
+
+    return render(request, 'AppCoder/profesores_formulario.html', contexto)

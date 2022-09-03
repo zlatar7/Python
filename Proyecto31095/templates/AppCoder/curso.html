@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block title %} CURSO {% endblock %}
+
+{% block inicio %}
+
+<h1 style="text-align: center; color:#ffae00">CURSOS</h1>
+<table style="background-color: #ffae0096; margin: auto; color: #ffffff; border: 1.5px solid #ff9100; box-shadow: 0px 0px 15px 6px #ff66006c;">
+    <thead style="background-color: #ff9900f1;">
+        <tr>
+            <th>NOMBRE</th>
+            <th>CAMADA</th>
+            <th>ELIMINAR</th>
+            <th>EDITAR</th>
+        </tr>
+    </thead>
+    <Tbody style="background-color: #ff9900f1;">
+        {% for curso in cursos %}
+        <tr>
+            <td>{{curso.nombre}}</td>   
+            <td>{{curso.camada}}</td>
+            <td><a href="{% url 'AppCoderEliminarCurso' curso.camada %}">[X]</a></td>
+            <td><a href="{% url 'AppCoderEditarCurso' curso.camada %}">[edit]</a></td>
+        </tr>
+        {% endfor %}
+    </Tbody>
+</table>
+
+
+{% endblock %}    

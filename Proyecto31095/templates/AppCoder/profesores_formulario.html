@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block title %} PROFESORES FORMULARIO {% endblock %}
+
+{% block inicio %}
+
+<form action="" method="POST" style="padding: 10px; background-color: #ff9900f1; width: min-content; margin: auto;">
+    {% csrf_token %}
+        
+    {{ form.as_p }}
+    
+    <input type="submit" value="enviar">
+
+</form>
+
+{% endblock %}    
