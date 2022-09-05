@@ -98,16 +98,16 @@ def curso_busqueda(request):
 def profesores(request):
 
     if request.method == 'POST':
-        mi_formulario = ProfesoresFormulario()(request.POST)
+        mi_formulario = ProfesoresFormulario(request.POST)
 
         if mi_formulario.is_valid():
             
             data = mi_formulario.cleaned_data
 
-            curso1 = Profesor(nombre=data.get('nombre'), apellido=data.get('camada'), email=data.get('email'), profesion=data.get('profesion'))
-            curso1.save()
+            profesor1 = Profesor(nombre=data.get('nombre'), apellido=data.get('apellido'), email=data.get('email'), profesion=data.get('profesion'))
+            profesor1.save()
             
-            return redirect('AppCoder/')
+            return redirect('AppCoderInicio')
 
     contexto = {'form': ProfesoresFormulario()}
 
