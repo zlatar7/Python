@@ -14,8 +14,8 @@ Este proyecto se trata de un supuesto sitio web que ofrece capacitaciones a trav
 
 #### AppCoder directory (paths)
 
-    AppCoder/ (Página de inicio donde se puede ingresar, a traves de 				formularios, profesores y estudiantes)
-            curso/ (Página de los cursos disponibles y panel de 					control y edición de los mismos )
+    AppCoder/ (Página de inicio donde se puede ingresar, a traves formularios, profesores y estudiantes)
+            curso/ (Página de los cursos disponibles y panel de control y edición de los mismos )
 
 #### Comandos en la consola (PowerShell)
 
