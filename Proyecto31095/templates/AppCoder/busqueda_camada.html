@@ -1,13 +1,11 @@
-{% extends 'index.html' %}
-
 {% block title %} BUSQUEDA CAMADA FORMULARIO {% endblock %}
 
-{% block inicio %}
+
 
     <form action="" method="POST">
     {% csrf_token %}
         
-        {{ form.as_p }}
+        {{ forms.as_p }}
         <input type="submit" value="buscar">
 
     </form>
@@ -16,6 +14,4 @@
 
     <p> El nombre del curso es {{curso.nombre}} y la camada {{curso.camada}} </p>
 
-{% endfor %}
-
-{% endblock %}    
+    {% endfor %}

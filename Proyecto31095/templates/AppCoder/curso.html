@@ -1,30 +1,43 @@
-{% extends 'index.html' %}
-
-{% block title %} CURSO {% endblock %}
-
-{% block inicio %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title> {% block title %} INICIO {% endblock %}</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
+</head>
+<body>
+{% include 'sections/navBar.html' %}
+{% block curso %}
 
 <h1 style="text-align: center; color:#ffae00">CURSOS</h1>
 <table style="background-color: #ffae0096; margin: auto; color: #ffffff; border: 1.5px solid #ff9100; box-shadow: 0px 0px 15px 6px #ff66006c;">
-    <thead style="background-color: #ff9900f1;">
-        <tr>
-            <th>NOMBRE</th>
-            <th>CAMADA</th>
-            <th>ELIMINAR</th>
-            <th>EDITAR</th>
-        </tr>
-    </thead>
-    <Tbody style="background-color: #ff9900f1;">
-        {% for curso in cursos %}
-        <tr>
-            <td>{{curso.nombre}}</td>   
-            <td>{{curso.camada}}</td>
-            <td><a href="{% url 'AppCoderEliminarCurso' curso.camada %}">[X]</a></td>
-            <td><a href="{% url 'AppCoderEditarCurso' curso.camada %}">[edit]</a></td>
-        </tr>
-        {% endfor %}
-    </Tbody>
+<thead style="background-color: #ff9900f1;">
+    <tr>
+        <th>NOMBRE</th>
+        <th>CAMADA</th>
+        <th>ELIMINAR</th>
+        <th>EDITAR</th>
+    </tr>
+</thead>
+<Tbody style="background-color: #ff9900f1;">
+    {% for curso in cursos %}
+    <tr>
+        <td>{{curso.nombre}}</td>   
+        <td>{{curso.camada}}</td>
+        <td><a href="{% url 'AppCoderEliminarCurso' curso.camada %}">[X]</a></td>
+        <td><a href="{% url 'AppCoderEditarCurso' curso.camada %}">[edit]</a></td>
+    </tr>
+    {% endfor %}
+</Tbody>
 </table>
 
-
-{% endblock %}    
+{% endblock %}
+</body>
+</html>

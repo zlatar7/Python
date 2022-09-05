@@ -1,7 +1,6 @@
 from django.urls import path
-from django.views.generic import ListView
 
-from AppCoder.views import curso, inicio, curso_formulario, curso_busqueda, profesores, eliminar_curso, editar_curso
+from AppCoder.views import curso, inicio, curso_formulario, profesores, eliminar_curso, editar_curso, curso_busqueda
 
 urlpatterns = [
     path('', inicio, name=('AppCoderInicio')),

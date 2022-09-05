@@ -22,17 +22,3 @@ class Profesor(models.Model):
     apellido = models.CharField(max_length=30)
     email = models.EmailField()
     profesion = models.CharField(max_length=30)
-
-
-class Entregable(models.Model):
-
-    nombre = models.CharField(max_length=30)
-    fecha_de_entrega = models.DateField()
-    entregado = models.BooleanField()
-
-class Familia(models.Model):
-
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    edad = models.IntegerField()
-    fecha = models.DateField()

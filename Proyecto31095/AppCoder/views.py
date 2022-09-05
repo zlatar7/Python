@@ -6,7 +6,11 @@ from AppCoder.models import Curso, Profesor
 from AppCoder.forms import CursoFormulario, BusquedaCamadaFormulario, ProfesoresFormulario
 
 def inicio(request):
-    return render(request, 'index.html')
+    contexto = {
+        'form': BusquedaCamadaFormulario()
+        }
+
+    return render(request, 'index.html', contexto)
 
 def editar_curso(request, camada):
     curso_editar = Curso.objects.get(camada=camada)
@@ -72,18 +76,18 @@ def curso_formulario(request):
 
     contexto = {
         'form': CursoFormulario(),
-        'cursos': cursos
+        # 'cursos': cursos
     }
     return render(request, 'AppCoder/curso_formulario.html', contexto)
 
 def curso_busqueda(request):
 
-    camada = request.POST.get('camada')
+    camada = request.POST.get('camada') or 0
 
     cursos = Curso.objects.filter(camada__icontains=camada)
     """ '__exact' para usar el filtro de manera exacta """
     contexto = {
-        'form': BusquedaCamadaFormulario(),
+        'forms': BusquedaCamadaFormulario(),
         'cursos': cursos
     }
     return render(request, 'AppCoder/busqueda_camada.html', contexto)
