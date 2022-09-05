@@ -1,17 +1,24 @@
+{% extends 'index.html' %}
+
 {% block title %} BUSQUEDA CAMADA FORMULARIO {% endblock %}
 
+    {% block camada %}
 
+    <div class="m-2">
+    <form action="" method="POST" class="container">
 
-    <form action="" method="POST">
-    {% csrf_token %}
+        {% csrf_token %}
         
-        {{ forms.as_p }}
-        <input type="submit" value="buscar">
-
+        {{ forms.as_div }}
+        <br>
+        <input type="submit" value="BUSCAR" class="btn-primary" >
     </form>
-
+    </div>
+    
     {% for curso in cursos %}
-
+    
     <p> El nombre del curso es {{curso.nombre}} y la camada {{curso.camada}} </p>
-
+    
     {% endfor %}
+    
+    {% endblock %}

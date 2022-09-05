@@ -1,18 +1,14 @@
 {% extends 'index.html' %}
 
-{% block title %} PROFESORES FORMULARIO {% endblock %}
-
-{% block profesores %}
+{% block estudiantes %}
 
 <form action="" method="POST" class="container">
-    <div class="m-3 p-3">
+    <div class="m-3 p-3" >
     {% csrf_token %}
-        
+    
     {{ form.as_p }}
-        
     </div>
     <input class="btn-primary" type="submit" value="ENVIAR">
-
 </form>
 
-{% endblock %}    
+{% endblock %}

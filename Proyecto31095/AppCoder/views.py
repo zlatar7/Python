@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 import django
 
-from AppCoder.models import Curso, Profesor
-from AppCoder.forms import CursoFormulario, BusquedaCamadaFormulario, ProfesoresFormulario
+from AppCoder.models import Curso, Profesor, Estudiante
+from AppCoder.forms import CursoFormulario, BusquedaCamadaFormulario, ProfesoresFormulario, EstudiantesFormulario
 
 def inicio(request):
     contexto = {
@@ -30,6 +30,8 @@ def editar_curso(request, camada):
                 messages.error(request, "la modificacion fallo por que la camada esta repedita")
 
             return redirect('AppCoderCurso')
+    
+    cursos = Curso.objects.all()
 
     contexto = {
         'form': CursoFormulario(
@@ -37,7 +39,8 @@ def editar_curso(request, camada):
                 "nombre": curso_editar.nombre,
                 "camada": curso_editar.camada,
             }
-        )
+        ),
+        'cursos': cursos
     }
 
     return render(request, 'AppCoder/curso_formulario.html', contexto)
@@ -70,13 +73,13 @@ def curso_formulario(request):
             curso1 = Curso(nombre=data.get('nombre'), camada=data.get('camada'))
             curso1.save()
             
-            return redirect('AppCoderCursoFormulario')
+            return redirect('AppCoderCurso')
         
     cursos = Curso.objects.all()
 
     contexto = {
         'form': CursoFormulario(),
-        # 'cursos': cursos
+        'cursos': cursos
     }
     return render(request, 'AppCoder/curso_formulario.html', contexto)
 
@@ -104,8 +107,27 @@ def profesores(request):
             curso1 = Profesor(nombre=data.get('nombre'), apellido=data.get('camada'), email=data.get('email'), profesion=data.get('profesion'))
             curso1.save()
             
-            return redirect('AppCoderProfesores')
+            return redirect('AppCoder/')
 
     contexto = {'form': ProfesoresFormulario()}
 
     return render(request, 'AppCoder/profesores_formulario.html', contexto)
+
+def estudiantes_formulario (request):
+
+    if request.method == 'POST':
+        mi_formulario = EstudiantesFormulario(request.POST)
+
+        if mi_formulario.is_valid():
+            
+            data = mi_formulario.cleaned_data
+
+            curso1 = Estudiante(nombre=data.get('nombre'), apellido=data.get('apellido'), email=data.get('email'))
+            curso1.save()
+            
+            return redirect('AppCoderInicio')
+          
+    contexto = {
+        'form': EstudiantesFormulario()
+    }
+    return render(request, 'AppCoder/estudiantes_formulario.html', contexto)

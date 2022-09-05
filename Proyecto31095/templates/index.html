@@ -15,14 +15,12 @@
     <body>
         {% include 'sections/navBar.html' %}
         <header>
-        <h1 class="text-primary text-center">PLATAFORMA DE CAPACITACIÓN DE ARGENTINA 2.0</h1>
+        <h1 class="text-primary text-center">PLATAFORMA DE CAPACITACIÓN ARGENTINA 2.0</h1>
         <br>
             {% for message in messages %}
                 <p>{{ message }}</p>
             {% endfor %}
         </header>
-            {% block inicio %}
-            {% endblock %}
         <!-- Page content-->
         <div class="container">
             <div class="row">
@@ -30,10 +28,15 @@
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2022</div>
-                            
+                        <div class="card-header">
+                            <img class="card-img-top" src="https://spicyminds.mx/wp-content/uploads/2019/04/busqueda.png" alt="busqueda" />
+                            <div class="card-body">
+                                <p>Puedes ubicar tu curso según en el numero de camada</p>
+                                <a href="{% url 'AppCoderBusquedaCamada' %}">ENCUENTRA EL CURSO</a>
+                                <hr>
+                                {% block camada %}
+                                {% endblock %}
+                            </div>
                         </div>
                     </div>
                     <!-- Nested row for non-featured blog posts-->
@@ -99,18 +102,22 @@
                 <!-- Widget Profesores -->
                     <div class="col-lg-4">
                     <div class="card mb-4">
-                        <div class="card-header">PROFESORES:</div>
-                        <div class="card-body">
-                            <p>Ingresá a la plataforma de los cursos desde aquí</p>
-                            <input class="btn-outline-primary" type="button" value="INGRESAR">
+                        <div class="card-header bg-primary bg-opacity-50">PROFESORES:</div>
+                        <div class="card-body bg-primary bg-opacity-25">
+                            <p>Registrate a la plataforma desde aquí</p>
+                            <a class="btn-outline-primary" href="{% url 'AppCoderProfesoresFormulario' %}">REGISTRARSE</a>
+                            {% block profesores %}
+                            {% endblock %}
                         </div>
                     </div>
                     <!-- Widget Estudiantes-->
                     <div class="card mb-4">
-                        <div class="card-header">ESTUDIANTES:</div>
-                        <div class="card-body">
-                            <p>Ingresá a la plataforma de los cursos desde aquí</p>
-                            <a class="btn-outline-primary" href="{% url 'AppCoderCursoFormulario'%}">ENTRAR</a>
+                        <div class="card-header bg-primary bg-opacity-50">ESTUDIANTES:</div>
+                        <div class="card-body bg-primary bg-opacity-25">
+                            <p>Registrate a la plataforma desde aquí</p>
+                            <a class="btn-outline-primary" href="{% url 'AppCoderEstudiantesFormulario'%}">REGISTRARSE</a>
+                            {% block estudiantes %}
+                            {% endblock %}
                         </div>
                     </div>
 

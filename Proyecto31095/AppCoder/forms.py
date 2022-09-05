@@ -12,3 +12,8 @@ class ProfesoresFormulario(forms.Form):
     apellido = forms.CharField(max_length=40)
     email = forms.EmailField()
     profesion = forms.CharField(max_length=40)
+
+class EstudiantesFormulario(forms.Form):
+    nombre = forms.CharField(max_length=40)
+    apellido = forms.CharField(max_length=40)
+    email = forms.EmailField()
