@@ -1,6 +1,6 @@
 from django.urls import path
 
-from AppCoder.views import curso, inicio, curso_formulario, profesores, eliminar_curso, editar_curso, curso_busqueda, estudiantes_formulario
+from AppCoder.views import *
 
 urlpatterns = [
     path('', inicio, name=('AppCoderInicio')),

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import django
 
 from AppCoder.models import Curso, Profesor, Estudiante
@@ -27,7 +28,7 @@ def editar_curso(request, camada):
             try:
                 curso_editar.save()
             except django.db.utils.IntegrityError:
-                messages.error(request, "la modificacion fallo por que la camada esta repedita")
+                messages.ERROR(request, "la modificacion fallo por que la camada esta repedita")
 
             return redirect('AppCoderCurso')
     
@@ -53,6 +54,7 @@ def eliminar_curso(request, camada):
 
     return redirect('AppCoderCurso')
 
+@ login_required
 def curso (request):
 
     cursos = Curso.objects.all()
