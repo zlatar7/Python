@@ -9,6 +9,7 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'AppCoderInicio' %}">INICIO</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'AppCoderCurso' %}">CURSOS</a></li>
                 {% if user.is_authenticated %}
+                    <img src="{{ user.avatar.imagen.url }}" alt="">
                     <h3> User: {{ user.get_username }} </h3>
                     <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderLogout' %}">LOGOUT</a></li>
                 {% else %}
