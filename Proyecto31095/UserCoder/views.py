@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from UserCoder.forms import UserRegisterForm
+from UserCoder.forms import UserRegisterForm, AvatarForm
+from UserCoder.models import Avatar
 
 def login_request(request):
 
@@ -61,7 +63,7 @@ def register(request):
 
 @login_required
 def editar_usuario(request):
-    
+
     usuario = request.user
 
     if request.method == 'POST':
@@ -95,3 +97,30 @@ def editar_usuario(request):
     }
 
     return render(request, 'base_formulario.html', contexto)
+
+def upload_avatar(request):
+    if request.method == "POST":
+
+        formulario = AvatarForm(request.POST, request.FILES)
+
+        if formulario.is_valid():
+
+            data = formulario.cleaned_data
+            avatar = Avatar.objects.filter(user=data.get("usuario"))
+
+            if len(avatar) > 0:
+                avatar = avatar[0]
+                avatar.imagen = formulario.cleaned_data["imagen"]
+                avatar.save()
+
+            else:
+                avatar = Avatar(user=data.get("user"), imagen=data.get("imagen"))
+                avatar.save()
+
+        return redirect("AppCoderInicio")
+
+    contexto = {
+        "form": AvatarForm(),
+        'boton_envio': 'Crear'
+    }
+    return render(request, "base_formulario.html", contexto)
