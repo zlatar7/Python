@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import dj_database_url
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,13 +35,15 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'AppCoder',
-    'UserCoder'
+    'UserCoder',
+    'whitenoise.runserver_nostatic'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +136,9 @@ LOGIN_URL = 'UserCoderLogin'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
