@@ -6,6 +6,7 @@ import datetime
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView
 
 from AppCoder.models import *
 from AppCoder.forms import *
@@ -13,16 +14,16 @@ from AppCoder.forms import *
 def inicio(request):
     blogs = Blog.objects.all()
 
-    contexto = {'blogs': blogs,
+    contexto = {'posts': blogs,
         'form': BusquedaBlogFormulario()
         }
 
     return render(request, 'index.html', contexto)
 
-""" def blog_crear(request):
+def blog_crear(request):
 
     return
- """
+
 def blog_editar(request, numero):
     blog_editar = Blog.objects.get(numero=numero)
 
@@ -113,40 +114,3 @@ class CreateBlog(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     login_url = 'login'
     success_url = "/"
     success_message = "Your blog has been created"
-""" 
-def profesores(request):
-
-    if request.method == 'POST':
-        mi_formulario = ProfesoresFormulario(request.POST)
-
-        if mi_formulario.is_valid():
-            
-            data = mi_formulario.cleaned_data
-
-            profesor1 = Profesor(nombre=data.get('nombre'), apellido=data.get('apellido'), email=data.get('email'), profesion=data.get('profesion'))
-            profesor1.save()
-            
-            return redirect('AppCoderInicio')
-
-    contexto = {'form': ProfesoresFormulario()}
-
-    return render(request, 'AppCoder/profesores_formulario.html', contexto) """
-""" 
-def estudiantes_formulario (request):
-
-    if request.method == 'POST':
-        mi_formulario = EstudiantesFormulario(request.POST)
-
-        if mi_formulario.is_valid():
-            
-            data = mi_formulario.cleaned_data
-
-            curso1 = Estudiante(nombre=data.get('nombre'), apellido=data.get('apellido'), email=data.get('email'))
-            curso1.save()
-            
-            return redirect('AppCoderInicio')
-          
-    contexto = {
-        'form': EstudiantesFormulario()
-    }
-    return render(request, 'AppCoder/estudiantes_formulario.html', contexto) """

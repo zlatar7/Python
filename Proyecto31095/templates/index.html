@@ -31,9 +31,23 @@
         <div class="row ">
             <div class="col-lg-8 p-4 bg-dark bg-opacity-25">
                 {% block blogs %}
-                
-                {% endblock %}
+                {% for blog in posts %}
+                <div class="col-lg-12">
+                    <!-- Blog post-->
+                    <div class="card mb-4">
+                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                    <div class="card-body">
+                        <div class="small text-muted">{{blog.title}}</div>
+                        <h2 class="card-title h4">{{blog.author}}</h2>
+                        <p class="card-text">{{blog.mini_description}}</p>
+                        <p class="card-text">{{blog.post_date}}</p>
+                        <a class="btn btn-primary" href="#!">Read more →</a>
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
+            {% endblock %}
             <div class="col-lg-4 ">
                 <div class="card-mb-4 border border-primary bg-success bg-opacity-25">
                     <div class="card-header">

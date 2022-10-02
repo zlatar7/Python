@@ -3,6 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from AppCoder.views import *
 from AppCoder import views
+
 urlpatterns = [
     path('', inicio, name=('AppCoderInicio')),
     path('blog_formulario/', views.CreateBlog.as_view(), name="create-blog"),
