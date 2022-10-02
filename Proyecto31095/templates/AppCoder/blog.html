@@ -14,9 +14,9 @@
 </head>
 <body>
 {% include 'sections/navBar.html' %}
-{% block curso %}
+{% block inicio %}
 
-<h1 style="text-align: center; color:#ffae00">CURSOS</h1>
+<h1 style="text-align: center; color:#ffae00">BLOGS</h1>
 <table style="background-color: #ffae0096; margin: auto; color: #ffffff; border: 1.5px solid #ff9100; box-shadow: 0px 0px 15px 6px #ff66006c;">
 <thead style="background-color: #ff9900f1;">
     <tr>
@@ -27,22 +27,22 @@
     </tr>
 </thead>
 <Tbody style="background-color: #ff9900f1;">
-    {% for curso in cursos %}
+    {% for blog in blogs %}
     <tr>
-        <td>{{curso.nombre}}</td>   
-        <td>{{curso.camada}}</td>
-        <td><a href="{% url 'AppCoderEliminarCurso' curso.camada %}">[X]</a></td>
-        <td><a href="{% url 'AppCoderEditarCurso' curso.camada %}">[edit]</a></td>
+        <td>{{blog.nombre}}</td>   
+        <td>{{blog.numero}}</td>
+        <td><a href="{% url 'AppCoderEliminarBlog' blog.numero %}">[X]</a></td>
+        <td><a href="{% url 'AppCoderEditarBlog' blog.numero %}">[edit]</a></td>
     </tr>
     {% endfor %}
 </Tbody>
 </table>
-
 {% endblock %}
 
-
-<a href="{% url 'AppCoderCursoFormulario' %}">AGREGAR CURSO NUEVO</a>
-{% block curso_nuevo %}
+<span>
+    <a href="{% url 'AppCoderBlogFormulario' %}">AGREGAR CURSO NUEVO</a>
+</span>
+{% block blog_nuevo %}
 {% endblock %}
 </body>
 </html>

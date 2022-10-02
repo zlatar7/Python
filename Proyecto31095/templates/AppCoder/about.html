@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    {% include 'sections/navBar.html' %}
+    <br>
+    <div class="container shadow-lg bg-light border rounded p-4">
+        <div class="card m-4">
+            <div class="card-header border-white d-flex bg-primary justify-content-center">
+                <h1 style="color: #e6e6e6">ACERCA DE MÍ</h1>
+            </div>
+            <div style="background-color: #003fc7d8 ;" class="card-body p-4 d-inline-block justify-content-center">
+                <p style="color: #e6e6e6"> 
+                    Mi nombre es Guido Zlatar y realicé este proyecto con un fin educativo para la plataforma de capacitación virtual "CODERHOUSE"
+                    en la cual soy estudiante, mas precisamente en el curso de Python. Soy técnico en programación y estoy permanentemente aprendiendo habilidades y conocimientos del mundo
+                    IT, entre ellas el uso de distintos lenguajes como JavaScript, Java, Python, SQL; y sus respectivos frameworks por ejemplo Django y ReactJs.
+                </p>
+                <p style="color: #e6e6e6">
+                    En cuanto al proyecto, se trata de un sitio web de blogs donde las personas interesadas pueden leer los diversos contenidos que publican los usuarios ya registrados.
+                    En caso de que alguien quiera realizar o editar un post puede hacerlo luego de registrarse (gratuitamente) y del inicio de sesión.
+                </p>
+                <p style="color: #e6e6e6">
+                    Los contenidos que se encuentran en este sitio tienen la finalidad de ayudar, compartir y difundir; ya sean soluciones, novedades o nuevos conocimientos.
+                    En última instancia la visión que tuve al crear este sitio web es el de generar una comunidad dedicada a las resoluciones de las necesidades propias de las personas
+                    que transitan el camino de la programación.
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    {% include 'sections/footer.html' %}
+</body>
+</html>

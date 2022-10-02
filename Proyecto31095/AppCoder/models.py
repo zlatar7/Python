@@ -1,24 +1,30 @@
 from django.db import models
+from email.policy import default
+from django.db import models
+from django.contrib.auth.models import User
+from datetime import date
+from django.template.defaultfilters import slugify
+from ckeditor.fields import RichTextField
 
-class Curso(models.Model):
+class Blog(models.Model):
+    name = models.CharField(max_length=40, default=" ")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=10)
+    description = RichTextField()
+    mini_description = models.TextField()
+    post_date = models.DateField(default=date.today)
+    slug = models.CharField(max_length=1000, null=True, blank=True)
 
-    nombre = models.CharField(max_length=40)
-    camada = models.IntegerField()
+    def __str__(self):
+        return self.name + " ==> " + str(self.author)
 
-    def __str__(self) -> str:
-        return f"Curso: {self.nombre}, Camada: {self.camada}"
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name + "-" + str(self.post_date))
+        return super().save(*args, **kwargs)
 
+        
 
-class Estudiante(models.Model):
+""" class BlogImage(models.Model):
 
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    email = models.EmailField()
-
-
-class Profesor(models.Model):
-
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    email = models.EmailField()
-    profesion = models.CharField(max_length=30)
+    nombre = models.OneToOneField(Blog, on_delete=models.CASCADE, null=False)
+    imagen = models.ImageField(upload_to='media', null=True, blank=True) """

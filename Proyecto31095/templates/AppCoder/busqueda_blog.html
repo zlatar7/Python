@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} BUSQUEDA BLOG FORMULARIO {% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
+</head>
+<body>
+    {% include 'sections/navBar.html' %}
+    {% block numero %}
+    <div class="container">
+    
+    <div class="card m-4">
+        <div class="card-header d-flex align-middle justify-content-center m-4">
+            <img src="https://iconarchive.com/download/i60242/zerode/plump/Search.ico" height="100px" width="" alt="search">
+        </div>
+        <div class="card-body d-flex justify-content-center align-middle">
+            <form action="" style="padding: 2em;margin: 2em ;background-color: #0000ff38;border: 1.5px solid #000d7ea6; width: min-content; height: min-content;" method="POST" class="container">
+                {% csrf_token %}
+                <div style="padding: 1em;">
+                    {{ forms.as_div }}
+                    <br>
+                    <input type="submit" value="BUSCAR" class="btn-primary" >
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+<div class="container">
+
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-lg-6">
+            <div class="card">
+            <div class="card-title">
+                BLOG
+            </div>
+            <div class="card-body">
+                <p> El nombre del POST es {{blog.nombre}} y el numero: {{blog.numero}} </p>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    
+    
+    {% endblock %}
+    
+    {% include 'sections/footer.html' %}
+</body>
+</html>
+
+
+
