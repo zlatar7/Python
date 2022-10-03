@@ -2,134 +2,127 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import django
+import datetime
+from django.views import generic
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView
 
-from AppCoder.models import Curso, Profesor, Estudiante
-from AppCoder.forms import CursoFormulario, BusquedaCamadaFormulario, ProfesoresFormulario, EstudiantesFormulario
+from AppCoder.models import *
+from AppCoder.forms import *
 
 def inicio(request):
-    contexto = {
-        'form': BusquedaCamadaFormulario()
+    blogs = Blog.objects.all()
+
+    contexto = {'posts': blogs,
+        'form': BusquedaBlogFormulario()
         }
 
     return render(request, 'index.html', contexto)
 
-def editar_curso(request, camada):
-    curso_editar = Curso.objects.get(camada=camada)
-
-    if request.method == 'POST':
-        mi_formulario = CursoFormulario(request.POST)
-
-        if mi_formulario.is_valid():
-
-            data = mi_formulario.cleaned_data
-
-            curso_editar.nombre = data.get('nombre')
-            curso_editar.camada = data.get('camada')
-            try:
-                curso_editar.save()
-            except django.db.utils.IntegrityError:
-                messages.ERROR(request, "la modificacion fallo por que la camada esta repedita")
-
-            return redirect('AppCoderCurso')
+def detalles(request, titulo='Python'):
+    blog_seleccionado = Blog.objects.get(title = titulo)
     
-    cursos = Curso.objects.all()
+    contexto = {'blog': blog_seleccionado}
+
+    return render(request, 'AppCoder/blog_detalles.html', contexto)
+
+def blog_busqueda(request):
+
+    titulo = request.POST.get('title') or ""
+
+    blogs = Blog.objects.filter(title__icontains=titulo)
 
     contexto = {
-        'form': CursoFormulario(
-            initial={
-                "nombre": curso_editar.nombre,
-                "camada": curso_editar.camada,
-            }
-        ),
-        'cursos': cursos
+        'forms': BusquedaBlogFormulario(),
+        'blogs': blogs
     }
+    return render(request, 'AppCoder/busqueda_blog.html', contexto)
 
-    return render(request, 'AppCoder/curso_formulario.html', contexto)
-
-def eliminar_curso(request, camada):
-    curso_eliminar = Curso.objects.get(camada= camada)
-    curso_eliminar.delete()
-
-    messages.info(request ,f"El curso {curso_eliminar} fue eliminado")
-
-    return redirect('AppCoderCurso')
+def about (request):
+    return render(request, 'AppCoder/about.html')
 
 @ login_required
-def curso (request):
 
-    cursos = Curso.objects.all()
-
-    contexto= {'cursos': cursos}
-
-    return render(request, 'AppCoder/curso.html', contexto)
-
-def curso_formulario(request):
+def blog_formulario(request):
 
     if request.method == 'POST':
-        mi_formulario = CursoFormulario(request.POST)
-
-        if mi_formulario.is_valid():
-            
-            data = mi_formulario.cleaned_data
-
-            curso1 = Curso(nombre=data.get('nombre'), camada=data.get('camada'))
-            curso1.save()
-            
-            return redirect('AppCoderCurso')
+        mi_formulario = BlogFormulario(request.POST)
         
-    cursos = Curso.objects.all()
-
-    contexto = {
-        'form': CursoFormulario(),
-        'cursos': cursos
-    }
-    return render(request, 'AppCoder/curso_formulario.html', contexto)
-
-def curso_busqueda(request):
-
-    camada = request.POST.get('camada') or 0
-
-    cursos = Curso.objects.filter(camada__icontains=camada)
-    """ '__exact' para usar el filtro de manera exacta """
-    contexto = {
-        'forms': BusquedaCamadaFormulario(),
-        'cursos': cursos
-    }
-    return render(request, 'AppCoder/busqueda_camada.html', contexto)
-
-def profesores(request):
-
-    if request.method == 'POST':
-        mi_formulario = ProfesoresFormulario(request.POST)
+        blogs = Blog.objects.all()
+        numero = len(blogs) + 1
 
         if mi_formulario.is_valid():
             
             data = mi_formulario.cleaned_data
 
-            profesor1 = Profesor(nombre=data.get('nombre'), apellido=data.get('apellido'), email=data.get('email'), profesion=data.get('profesion'))
-            profesor1.save()
-            
+            blog1 = Blog(nombre=data.get('nombre'), subtitulo=data.get('subtitulo'), numero=numero, contenido=data.get('contenido'),autor=data.get('autor'), fecha=str(datetime.datetime.now))
+            blog1.save()
             return redirect('AppCoderInicio')
+        
+    blogs = Blog.objects.all()
 
-    contexto = {'form': ProfesoresFormulario()}
+    contexto = {
+        'form': BlogFormulario(),
+        'blogs': blogs
+    }
+    return render(request, 'AppCoder/blog_formulario.html', contexto)
 
-    return render(request, 'AppCoder/profesores_formulario.html', contexto)
+def blog_editar(request, titulo):
 
-def estudiantes_formulario (request):
+    blog_editar = Blog.objects.filter(title__icontains= titulo)
 
     if request.method == 'POST':
-        mi_formulario = EstudiantesFormulario(request.POST)
-
+        mi_formulario = CreateBlogForm(request.POST)
+    
         if mi_formulario.is_valid():
-            
-            data = mi_formulario.cleaned_data
 
-            curso1 = Estudiante(nombre=data.get('nombre'), apellido=data.get('apellido'), email=data.get('email'))
-            curso1.save()
-            
-            return redirect('AppCoderInicio')
-          
+            data = mi_formulario.cleaned_data
+            try:
+                for i in blog_editar:
+                    i.title = data.get('title')
+                    i.author = data.get('author')
+                    i.subtitle = data.get('subtitle')
+                    i.description = data.get('description')
+                    i.post_date = datetime.date.today()
+                    i.slug = data.get('slug')
+
+                    i.save()
+                
+            except django.db.utils.IntegrityError:
+                messages.ERROR(request, "La modificación ha fallado. Intente nuevamente")
+
+            return redirect('AppCoderEdicionBlog')
+    
+    blogs = Blog.objects.all()
+
     contexto = {
-        'form': EstudiantesFormulario()
+        'form': CreateBlogForm(
+            initial={
+                "title": titulo,        
+            }),
+        'blogs': blogs
     }
-    return render(request, 'AppCoder/estudiantes_formulario.html', contexto)
+   
+    return render(request, 'AppCoder/blog_editar.html', contexto)
+
+def blog_edicion (request):
+    blogs = Blog.objects.all()
+
+    contexto = {'blogs': blogs }
+    return render(request, 'AppCoder/blog.html', contexto)
+
+def blog_eliminar(request, titulo):
+    blog_eliminar = Blog.objects.filter(title__exact= titulo)
+    blog_eliminar.delete()
+
+    messages.info(request ,f"El blog {titulo} fue eliminado")
+
+    return redirect('AppCoderEdicionBlog')
+
+class CreateBlog(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
+    form_class = CreateBlogForm
+    template_name = "AppCoder/blog_formulario.html"
+    login_url = 'login'
+    success_url = "/"
+    success_message = "El blog ha sido creado satisfactoriamente"

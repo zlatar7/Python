@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} DETALLES {% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
+</head>
+<body>
+    {% include 'sections/navBar.html' %}
+    {% block blog %}
+
+        <p>{{blog.title}}</p>
+        <p>{{blog.subtitle}}</p>
+        <p>{{blog.author}}</p>
+        <p>{{blog.post_date}}</p>
+        <p>{{blog.description}}</p>
+
+    {% endblock %}    
+    {% include 'sections/footer.html' %}
+</body>
+</html>

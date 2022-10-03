@@ -1,22 +1,26 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <img src="{% static 'logo.png' %}"  height="45em" class="m-1">
-    <a class="navbar-brand" href="{% url 'AppCoderInicio' %}">APPrender</a>
+    <a class="navbar-brand" href="{% url 'AppCoderInicio' %}">APPrendiendo</a>
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="{% url 'AppCoderInicio' %}">INICIO</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'AppCoderCurso' %}">CURSOS</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'AppCoderInicio' %}">HOME</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'create-blog'%}">CREATE</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'AppCoderAbout' %}">ABOUT</a></li>
                 {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderEditar' %}">PROFILE</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderMessages' %}">CHAT</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderLogout' %}">LOGOUT</a></li>
+                <div>
                     <img src="{{ user.avatar.imagen.url }}" height="40px" alt="user">
-                    <h3> User: {{ user.get_username }} </h3>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderLogout' %}">LOGOUT</a></li>
+                    <h3 style="color: white; font-size: medium;" >{{ user.get_username }}</h3>
+                </div>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderLogin' %}">LOGIN</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderRegister' %}">REGISTRARSE</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderRegister' %}">REGISTER</a></li>
                 {% endif %}
-                <li class="nav-item"><a class="nav-link" href="#!">CONTACTO</a></li>
             </ul>
         </div> 
     </div>

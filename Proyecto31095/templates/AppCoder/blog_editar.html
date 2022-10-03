@@ -1,0 +1,11 @@
+{% extends 'AppCoder/blog.html' %}
+<div class="container bg-primary bg-opacity-75 m-4 p-2 text-white">
+{% block result %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.media }}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success">Post blog</button>
+    </form>
+{% endblock %}
+</div>

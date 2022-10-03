@@ -1,0 +1,13 @@
+{% block title %}Create new blog{% endblock title %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+
+    {{form.as_p}}
+    <button type="submit" class="btn btn-success">Post blog</button>
+</form>
+
+
+{% endblock content %}

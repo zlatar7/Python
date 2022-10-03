@@ -1,24 +1,25 @@
+from email.policy import default
 from django.db import models
+from django.forms import CharField, IntegerField
+from UserCoder.models import User
+from django.db import models
+from django.contrib.auth.models import User
+from datetime import date
+from django.template.defaultfilters import slugify
+from ckeditor.fields import RichTextField
 
-class Curso(models.Model):
+class Blog(models.Model):
+    title = models.CharField(max_length=40, default=" ")
+    subtitle = models.TextField(max_length=500, default=" ")
+    author = models.CharField(max_length=40, default=" ")
+    description = RichTextField()
+    post_date = models.DateField(default=date.today)
+    slug = models.CharField(max_length=1000, null=True, blank=True)
 
-    nombre = models.CharField(max_length=40)
-    camada = models.IntegerField()
+    def __str__(self):
+        return self.title + " ==> " + str(self.author)
 
-    def __str__(self) -> str:
-        return f"Curso: {self.nombre}, Camada: {self.camada}"
-
-
-class Estudiante(models.Model):
-
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    email = models.EmailField()
-
-
-class Profesor(models.Model):
-
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    email = models.EmailField()
-    profesion = models.CharField(max_length=30)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title + "-" + str(self.post_date))
+        return super().save(*args, **kwargs)

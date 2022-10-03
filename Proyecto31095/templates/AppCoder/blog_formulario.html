@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        {{block.super }}
+        {% block extrahead %}
+        <script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+        {% endblock %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    {% include 'sections/navBar.html' %}
+    <div class="container bg-primary bg-opacity-75 m-4 p-2 text-white">
+    {% block blog_nuevo %}   
+
+    <form method="post">
+        {% csrf_token %}
+            {{ form.media }}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-success">Post blog</button>
+        </form>
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
+        
+        
+        {% include 'sections/footer.html' %}
+        <script type="text/javascript" src='{% static "ckeditor/ckeditor-init.js" %}'></script>
+        <script type="text/javascript" src='{% static "ckeditor/ckeditor/ckeditor.js" %}'></script>
+    </body>
+    </html>
+    

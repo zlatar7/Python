@@ -1,19 +1,22 @@
+from email.policy import default
 from django import forms
+from AppCoder.models import Blog
+from ckeditor.widgets import CKEditorWidget
 
-class CursoFormulario(forms.Form):
-    nombre = forms.CharField(max_length=40)
-    camada = forms.IntegerField()
+class BlogFormulario(forms.Form):
+   class Meta:
+        model = Blog
+        fields = "__all__"
 
-class BusquedaCamadaFormulario(forms.Form):
-    camada = forms.IntegerField()
 
-class ProfesoresFormulario(forms.Form):
-    nombre = forms.CharField(max_length=40)
-    apellido = forms.CharField(max_length=40)
-    email = forms.EmailField()
-    profesion = forms.CharField(max_length=40)
+class CreateBlogForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorWidget())
+    class Meta:
+        model = Blog
+        exclude = ('post_date', 'slug')
+        widgets = { 'author': forms.TextInput(),
+            'subtitle': forms.Textarea(attrs={'class': 'form-control'})
+        }
 
-class EstudiantesFormulario(forms.Form):
-    nombre = forms.CharField(max_length=40)
-    apellido = forms.CharField(max_length=40)
-    email = forms.EmailField()
+class BusquedaBlogFormulario(forms.Form):
+    title = forms.CharField(max_length=40)

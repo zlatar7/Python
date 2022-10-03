@@ -14,35 +14,43 @@
 </head>
 <body>
 {% include 'sections/navBar.html' %}
-{% block curso %}
 
-<h1 style="text-align: center; color:#ffae00">CURSOS</h1>
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+
+{% block inicio %}
+
+<h1 style="text-align: center; color:#ffae00">BLOGS</h1>
 <table style="background-color: #ffae0096; margin: auto; color: #ffffff; border: 1.5px solid #ff9100; box-shadow: 0px 0px 15px 6px #ff66006c;">
 <thead style="background-color: #ff9900f1;">
     <tr>
-        <th>NOMBRE</th>
-        <th>CAMADA</th>
+        <th>TITULO</th>
+        <th>AUTOR</th>
         <th>ELIMINAR</th>
         <th>EDITAR</th>
     </tr>
 </thead>
 <Tbody style="background-color: #ff9900f1;">
-    {% for curso in cursos %}
+    {% for blog in blogs %}
     <tr>
-        <td>{{curso.nombre}}</td>   
-        <td>{{curso.camada}}</td>
-        <td><a href="{% url 'AppCoderEliminarCurso' curso.camada %}">[X]</a></td>
-        <td><a href="{% url 'AppCoderEditarCurso' curso.camada %}">[edit]</a></td>
+        <td>{{blog.title}}</td>   
+        <td>{{blog.author}}</td>
+        <td><a href="{% url 'AppCoderEliminarBlog' blog.title %}">[X]</a></td>
+        <td><a href="{% url 'AppCoderEditarBlog' blog.title%}">[edit]</a></td>
     </tr>
     {% endfor %}
 </Tbody>
 </table>
-
 {% endblock %}
 
-
-<a href="{% url 'AppCoderCursoFormulario' %}">AGREGAR CURSO NUEVO</a>
-{% block curso_nuevo %}
+<span>
+    <a href="{% url 'create-blog' %}">AGREGAR CURSO NUEVO</a>
+</span>
+{% block blog_nuevo %}
 {% endblock %}
+{% block result %}
+{% endblock %}
+{% include 'sections/footer.html' %}
 </body>
 </html>
