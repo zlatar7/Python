@@ -1,18 +1,37 @@
-{% extends 'index.html' %}
-
-{% block title %}{{ titulo_form }}{% endblock %}
-
-{% block inicio %}
-
-    <h2>{{ titulo_form }}</h2>
-
-    <form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-
-        {{ form.as_p }}
-
-        <input type="submit" value="{{ boton_envio }}">
-
-    </form>
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ titulo_form }}{% endblock %}</title>
+    <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
+</head>
+<body>
+    {% include 'sections/navBar.html' %}
+    
+    {% block inicio %}
+    
+        <h2>{{ titulo_form }}</h2>
+        <br>
+        <div style="width: 80%; height: min-content; margin: 5em;" class="container d-inline-block justify-content-center p-2 shadow-lg border rounded bg-primary bg-opacity-75 text-white">
+        <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    
+            {{ form.as_p }}
+    
+            <input type="submit" value="{{ boton_envio }}">
+    
+        </form>
+        <br>
+        <hr>
+            <a style="display: flex; width: min-content;" class="nav-link text-white bg-info" href="{% url 'UserCoderAvatar' %}">AGREGAR AVATAR</a>
+        </div>
+        {% endblock %}
+        <br>
+        <br>
+        <br>
+    {% include 'sections/footer.html' %}    
+</body>
+</html>

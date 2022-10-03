@@ -41,15 +41,16 @@
                 BLOG
             </div>
             <div class="card-body">
-                <p> El nombre del POST es {{blog.nombre}} y el numero: {{blog.numero}} </p>
+                <p> El nombre del POST es {{blog.title}} y el autor es: {{blog.author}}: </p>
             </div>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-    
-    
+</div>
+<h1>{{mensaje}}</h1>
+<a href="{% url 'AppCoderBusquedaBlog' %}">{{boton}}</a>
     {% endblock %}
     
     {% include 'sections/footer.html' %}

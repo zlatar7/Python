@@ -14,20 +14,9 @@ class CreateBlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         exclude = ('post_date', 'slug')
-        widgets = {
-            'mini_description': forms.Textarea(attrs={'class': 'form-control'})
+        widgets = { 'author': forms.TextInput(),
+            'subtitle': forms.Textarea(attrs={'class': 'form-control'})
         }
-    
-""" class CommentBlogForm(forms.ModelForm):
-    class Meta:
-        model = BlogComment
-        fields = "__all__"
-        
-        widgets = {
-            'author': forms.TextInput(attrs={'value': '', 'id':'author', 'type':'hidden'}),
-            'blog': forms.TextInput(attrs={'value': '', 'id':'blog', 'type':'hidden'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
-        } """
 
 class BusquedaBlogFormulario(forms.Form):
-    numero = forms.IntegerField()
+    title = forms.CharField(max_length=40)

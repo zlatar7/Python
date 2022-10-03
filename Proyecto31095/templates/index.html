@@ -17,9 +17,7 @@
         <header>
         <h1 class="text-primary text-center">PLATAFORMA DE CAPACITACIÓN ARGENTINA 2.0</h1>
         <br>
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
+
         </header>
         {% block inicio %}
         {% endblock %}
@@ -37,11 +35,11 @@
                     <div class="card mb-4">
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                     <div class="card-body">
-                        <div class="small text-muted">{{blog.title}}</div>
+                        
                         <h2 class="card-title h4">{{blog.author}}</h2>
                         <p class="card-text">{{blog.mini_description}}</p>
                         <p class="card-text">{{blog.post_date}}</p>
-                        <a class="btn btn-primary" href="#!">Read more →</a>
+                        <a class="btn btn-primary" href="{% url 'AppCoderDetalles' blog.title %}">Read more →</a>
                     </div>
                     </div>
                 </div>

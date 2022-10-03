@@ -10,6 +10,8 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'create-blog'%}">CREATE</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'AppCoderAbout' %}">ABOUT</a></li>
                 {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderEditar' %}">PROFILE</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderMessages' %}">CHAT</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'UserCoderLogout' %}">LOGOUT</a></li>
                 <div>
                     <img src="{{ user.avatar.imagen.url }}" height="40px" alt="user">

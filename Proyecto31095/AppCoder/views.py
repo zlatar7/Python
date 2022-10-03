@@ -20,57 +20,19 @@ def inicio(request):
 
     return render(request, 'index.html', contexto)
 
-def blog_crear(request):
-
-    return
-
-def blog_editar(request, numero):
-    blog_editar = Blog.objects.get(numero=numero)
-
-    if request.method == 'POST':
-        mi_formulario = BlogFormulario(request.POST)
-
-        if mi_formulario.is_valid():
-
-            data = mi_formulario.cleaned_data
-
-            blog_editar.nombre = data.get('nombre')
-            blog_editar.numero = data.get('numero')
-            try:
-                blog_editar.save()
-            except django.db.utils.IntegrityError:
-                messages.ERROR(request, "La modificacion fallo por que el numero esta repedita")
-
-            return redirect('AppCoderBlog')
+def detalles(request, titulo='Python'):
+    blog_seleccionado = Blog.objects.get(title = titulo)
     
-    blogs = Blog.objects.all()
+    contexto = {'blog': blog_seleccionado}
 
-    contexto = {
-        'form': BlogFormulario(
-            initial={
-                "nombre": blog_editar.nombre,
-                "numero": blog_editar.numero,
-            }
-        ),
-        'blogs': blogs
-    }
-
-    return render(request, 'AppCoder/blog_formulario.html', contexto)
-
-def blog_eliminar(request, numero):
-    blog_eliminar = Blog.objects.get(numero= numero)
-    blog_eliminar.delete()
-
-    messages.info(request ,f"El blog {blog_eliminar} fue eliminado")
-
-    return redirect('AppCoderBlog')
+    return render(request, 'AppCoder/blog_detalles.html', contexto)
 
 def blog_busqueda(request):
 
-    numero = request.POST.get('numero') or 0
+    titulo = request.POST.get('title') or ""
 
-    blogs = Blog.objects.filter(numero__icontains=numero)
-    """ '__exact' para usar el filtro de manera exacta """
+    blogs = Blog.objects.filter(title__icontains=titulo)
+
     contexto = {
         'forms': BusquedaBlogFormulario(),
         'blogs': blogs
@@ -94,8 +56,6 @@ def blog_formulario(request):
             
             data = mi_formulario.cleaned_data
 
-            print(data)
-
             blog1 = Blog(nombre=data.get('nombre'), subtitulo=data.get('subtitulo'), numero=numero, contenido=data.get('contenido'),autor=data.get('autor'), fecha=str(datetime.datetime.now))
             blog1.save()
             return redirect('AppCoderInicio')
@@ -108,9 +68,61 @@ def blog_formulario(request):
     }
     return render(request, 'AppCoder/blog_formulario.html', contexto)
 
+def blog_editar(request, titulo):
+
+    blog_editar = Blog.objects.filter(title__icontains= titulo)
+
+    if request.method == 'POST':
+        mi_formulario = CreateBlogForm(request.POST)
+    
+        if mi_formulario.is_valid():
+
+            data = mi_formulario.cleaned_data
+            try:
+                for i in blog_editar:
+                    i.title = data.get('title')
+                    i.author = data.get('author')
+                    i.subtitle = data.get('subtitle')
+                    i.description = data.get('description')
+                    i.post_date = datetime.date.today()
+                    i.slug = data.get('slug')
+
+                    i.save()
+                
+            except django.db.utils.IntegrityError:
+                messages.ERROR(request, "La modificación ha fallado. Intente nuevamente")
+
+            return redirect('AppCoderEdicionBlog')
+    
+    blogs = Blog.objects.all()
+
+    contexto = {
+        'form': CreateBlogForm(
+            initial={
+                "title": titulo,        
+            }),
+        'blogs': blogs
+    }
+   
+    return render(request, 'AppCoder/blog_editar.html', contexto)
+
+def blog_edicion (request):
+    blogs = Blog.objects.all()
+
+    contexto = {'blogs': blogs }
+    return render(request, 'AppCoder/blog.html', contexto)
+
+def blog_eliminar(request, titulo):
+    blog_eliminar = Blog.objects.filter(title__exact= titulo)
+    blog_eliminar.delete()
+
+    messages.info(request ,f"El blog {titulo} fue eliminado")
+
+    return redirect('AppCoderEdicionBlog')
+
 class CreateBlog(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     form_class = CreateBlogForm
     template_name = "AppCoder/blog_formulario.html"
     login_url = 'login'
     success_url = "/"
-    success_message = "Your blog has been created"
+    success_message = "El blog ha sido creado satisfactoriamente"
