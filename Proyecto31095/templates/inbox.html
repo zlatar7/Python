@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block contenedor %}
+<div>
+<h1 style="color: #3b48ff; width: max-content; margin: auto;"> BIENVENIDO {{user}} A TU CASILLA DE MENSAJES </h1>
+
+{% for inbox in inbox %}
+<div style="margin:5em; background: #fff; border-radius: 5px; border:1px solid #e6e6e6; padding: 5px;">
+	
+	{% for second_user in inbox.canalusuario_set.all %}
+
+		{% if second_user.usuario ==  request.user %}
+
+		{% else %}
+
+			<a href="{% url 'detailms' second_user.usuario.username %}">
+				<p>	{{second_user.usuario}}	</p>
+				<small>	({{inbox.canalmensaje_set.count}}) Mensajes</small>
+			</a>
+
+		{% endif %}
+
+	{% endfor %}
+
+	{% if inbox.canalmensaje_set.count != 0 %}
+		<div class="div_ms_inbox">
+			{% with ultimo_mensaje=inbox.canalmensaje_set.last %}
+
+				<p> Mensaje: {{ultimo_mensaje.texto}}</p>
+
+				<p>Usuario: {{ultimo_mensaje.usuario}}</p>
+			{% endwith %}
+		</div>	
+	{% else %}
+		<p>	No hay mensajes en nuestro inbox </p>
+	{% endif %}
+
+
+
+</div>
+{% empty %}
+	<div style="padding: 1em ;margin: 10em auto 10em auto; background-color: aliceblue; display: flex; border: gray solid 2px; border-radius: 10px;">
+		<h2 class="text-primary" style="width: max-content; text-align: center; margin: auto;"> SU INBOX SE ENCUENTRA VACÍO </h2>
+	</div>
+	<a class="btn btn-primary" href="{% url 'AppCoderInicio' %}">VOLVER A LA PÁGINA PRINCIPAL</a>
+{% endfor %}
+
+</div>
+
+		
+{% endblock %}

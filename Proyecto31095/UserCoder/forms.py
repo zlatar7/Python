@@ -17,11 +17,3 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'last_name')
-
-class MessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = "__all__"
-
-class WriteMessage(forms.Form):
-    message = CharField(max_length=200)

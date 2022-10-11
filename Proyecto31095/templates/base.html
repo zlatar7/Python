@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% load static %}
+	<title>CHAT</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+		*{
+			margin: 0;
+			padding: 0;
+		}
+
+		body{
+			background:#fafafa;
+		}
+
+		h1, h2, h3, p, small{
+			font-family: 'Roboto', sans-serif;
+		}
+
+		.div_main{
+			width: 60%;
+			margin: 50px auto;
+		}
+
+	</style>
+	<link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
+</head>
+<body>
+	{% include 'sections/navBar.html' %}
+	<div class="div_main">
+		{% block contenedor %}
+		
+		{% endblock %}
+	</div>
+	{% include 'sections/footer.html' %}
+</body>
+</html>

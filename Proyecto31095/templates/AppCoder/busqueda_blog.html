@@ -14,7 +14,7 @@
     {% block numero %}
     <div class="container">
     
-    <div class="card m-4">
+    <div class="card border border-primary m-4">
         <div class="card-header d-flex align-middle justify-content-center m-4">
             <img src="https://iconarchive.com/download/i60242/zerode/plump/Search.ico" height="100px" width="" alt="search">
         </div>
@@ -33,19 +33,19 @@
 
 <div class="container">
 
-    <div class="row">
+    <div>
         {% for blog in blogs %}
-        <div class="col-lg-6">
-            <div class="card">
+        
+            <div class="card bg-primary bg-opacity-75 text-white d-flex text-center" style="width: max-content; margin: 1em auto 1em auto;">
             <div class="card-title">
                 BLOG
             </div>
             <div class="card-body">
                 <p> El nombre del POST es {{blog.title}} y el autor es: {{blog.author}}: </p>
+                <a class="btn btn-light" href="{% url 'AppCoderDetalles' blog.title %}">IR Al POST</a>
             </div>
             </div>
         </div>
-    </div>
     {% endfor %}
 </div>
 </div>

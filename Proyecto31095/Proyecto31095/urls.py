@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('AppCoder/', include('AppCoder.urls')),
     path('UserCoder/', include('UserCoder.urls')),
+    path('Chat/', include('Dm.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
