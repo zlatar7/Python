@@ -12,10 +12,10 @@
     {% include 'sections/navBar.html' %}
     
     {% block inicio %}
-    
+        <h1 class="text-primary" style="margin: 2em auto 1em auto; width:fit-content">COMPLETE EL FORMULARIO</h1>
         <h2>{{ titulo_form }}</h2>
         <br>
-        <div style="width: 80%; height: min-content; margin: 5em;" class="container d-inline-block justify-content-center p-2 shadow-lg border rounded bg-primary bg-opacity-75 text-white">
+        <div style="width: 80%; height: min-content; margin: 1em auto 1em auto;" class="container justify-content-center p-2 shadow-lg border rounded bg-primary bg-opacity-75 text-white">
         <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
     

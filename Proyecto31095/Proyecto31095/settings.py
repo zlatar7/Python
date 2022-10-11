@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'ckeditor',
     'ckeditor_uploader',
+    'Dm',
 ]
 
 MIDDLEWARE = [
@@ -194,6 +195,7 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

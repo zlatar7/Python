@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGOUT</title>
+    <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
 </head>
 <body>
-    <h1> TE ESPERAMOS PRONTO! </h1>
+    {% include 'sections/navBar.html' %}
+    <h1 style="text-align: center; margin:3em auto 5em auto; width: max-content; color:royalblue;"> TE ESPERAMOS PRONTO! </h1>
+    <a class="btn btn-primary" style="margin: 1em auto 4em auto; width: fit-content; display: flex;" href="{% url 'AppCoderInicio' %}">VOLVER A LA PAGINA PRINCIPAL</a>
+    {% include 'sections/footer.html' %}
 </body>
 </html>

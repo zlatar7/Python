@@ -10,25 +10,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href=" {% static 'css/styles.css' %} " rel="stylesheet" />
-    <title>Document</title>
+    <title>CREACION BLOG</title>
 </head>
 <body>
     {% include 'sections/navBar.html' %}
-    <div class="container bg-primary bg-opacity-75 m-4 p-2 text-white">
+    <h1 class="text-primary text-center m-4">ESCRIBE TU PUBLICACIÓN</h1>
+    <div class="container bg-primary bg-opacity-75 p-2 text-white border border-solid-info border-4 d-flex justify-self-center">
     {% block blog_nuevo %}   
 
-    <form method="post">
+    <form id="formulario" method="post">
         {% csrf_token %}
             {{ form.media }}
             {{form.as_p}}
-            <button type="submit" class="btn btn-success">Post blog</button>
+            <button type="submit" class="btn btn-success">PUBLICAR</button>
         </form>
         {% endblock %}
         {% block content %}
         {% endblock %}
     </div>
         
-        
+        <a class="btn btn-primary m-2" href="{% url 'AppCoderInicio' %}">VOLVER AL INICIO</a>
+        <br>
         {% include 'sections/footer.html' %}
         <script type="text/javascript" src='{% static "ckeditor/ckeditor-init.js" %}'></script>
         <script type="text/javascript" src='{% static "ckeditor/ckeditor/ckeditor.js" %}'></script>

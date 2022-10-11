@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm # UserCreationForm 
 from django.contrib.auth.decorators import login_required 
-from django.contrib import messages
 
 from UserCoder.forms import *
 from UserCoder.models import *
@@ -20,16 +20,16 @@ def login_request(request):
 
             user = authenticate(username=usuario, password=contrasenia)
 
-            if user:
+            if user.has_usable_password:
                 login(request, user)
-                messages.info(request, 'Inicio de sesion satisfactorio!')
-
+                redirect( 'AppCoderInicio')
             else:
-                messages.info(request, 'inicio de sesion fallido!')
+                redirect('UserCoderLogin')
+               
         else:
-            messages.info(request, 'inicio de sesion fallido!')
+                redirect('UserCoderLogin')
 
-        return redirect('AppCoderInicio')
+        return redirect('UserCoderLogin')
 
     contexto = {
         'form': AuthenticationForm(),
@@ -40,7 +40,6 @@ def login_request(request):
 def register(request):
     if request.method == 'POST':
 
-        # form = UserCreationForm(request.POST)
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
@@ -60,34 +59,11 @@ def register(request):
 
     return render(request, 'base_formulario.html', contexto)
 
+def info(request):
+
+    return render(request, 'UserCoder/sesion_fallida.html')
+
 @login_required
-
-def messages (request):
-
-    usuario = request.user
-    historial = Message.objects.all()
-    
-    if request.method == 'POST':
-        
-        form = WriteMessage(request.POST)
-
-        if form.is_valid():
-
-            data = form.cleaned_data
-
-            usuario.message = data.get('message')
-
-            usuario.save()
-
-        return redirect('UserCoderMessages')
-
-    contexto = {
-        'form': WriteMessage(),
-        'usuario': usuario,
-        'mensajes': historial
-    }
-
-    return render(request, 'UserCoder/messages.html', contexto)
 
 def editar_usuario(request):
 

@@ -2,12 +2,20 @@
 
 {% block title %} {{ nombre_form }} {% endblock%}
 
-{% block login %}   
-        <form action="" method="POST">
+
+{% block login %}
+<h2 class="text-info" style="margin: 1em auto 2em auto; text-align: center;">INICIA SESIÓN</h2>   
+<div class="container bg-primary bg-opacity-75 mt-4 mb-4 p-4 d-flex w-50 border border-4 border-info">
+    <form action="" method="POST">
         {% csrf_token %}
-            
-            {{ form.as_p }}
-            <input type="submit" value="{{nombre_form}}">
-    
-        </form>
+        
+        {{ form.as_p }}
+        <input type="submit" value="{{nombre_form}}">
+        
+    </form>
+</div>
+<br>
+<hr>
+<br>
+<br>
 {% endblock %}
